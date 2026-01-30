@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orquestrador de Leilão Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 40px; }
+        .app-container { background: white; width: 100%; max-width: 500px; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 10px; }
+        .setup-box, .lance-box { background: #f8f9fa; padding: 20px; border-radius: 10px; border: 1px solid #e9ecef; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 16px; }
+        .btn-start { background-color: #27ae60; color: white; }
+        .btn-start:hover { background-color: #219150; }
+        .btn-lance { background-color: #2980b9; color: white; }
+        .btn-lance:hover { background-color: #2471a3; }
+        .btn-lance:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+        .ranking-item { display: flex; justify-content: space-between; padding: 12px; border-bottom: 1px solid #eee; align-items: center; }
+        .vencedor { background-color: #d4edda; border: 2px solid #28a745; border-radius: 8px; margin-bottom: 10px; animation: glow 1.5s infinite alternate; }
+        @keyframes glow { from { box-shadow: 0 0 5px #28a745; } to { box-shadow: 0 0 15px #28a745; } }
+        .status-info { text-align: center; color: #7f8c8d; margin-bottom: 15px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h1>🔨 Leilão na web</h1>
+
+    <div id="setup-area" class="setup-box">
+        <label>Valor Real do Produto:</label>
+        <input type="text" id="valor-alvo-input" placeholder="R$ 0,00" oninput="mascaraMoeda(this)">
+        
+        <label>Total de Lances Permitidos:</label>
+        <input type="number" id="limite-lances" placeholder="Ex: 5" value="5">
+        
+        <button class="btn-start" onclick="configurarLeilao()">Iniciar Sessão de Leilão</button>
+    </div>
+
+    <div id="lance-area" class="lance-box" style="display:none;">
+        <div class="status-info">
+            Produto: <strong id="display-alvo">R$ 0,00</strong> | 
+            Lances: <span id="contador">0</span>/<span id="total-lances">0</span>
+        </div>
+        
+        <label>Nome do Participante:</label>
+        <input type="text" id="nome-participante" placeholder="Ex: João Silva">
+        
+        <label>Valor do Lance:</label>
+        <input type="text" id="valor-lance" placeholder="R$ 0,00" oninput="mascaraMoeda(this)">
+        
+        <button id="btn-registrar" class="btn-lance" onclick="registrarLance()">Enviar meu Lance</button>
+    </div>
+
+    <div id="ranking-area"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
